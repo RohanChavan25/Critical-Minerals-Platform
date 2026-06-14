@@ -185,7 +185,30 @@ function renderTab1() {
   let html = '';
 
   data.sections.forEach(sec => {
-    if (sec.id === 'basics_13') return; // rendered separately below with full REE explorer
+    if (sec.id === 'basics_13') {
+      // REE Explorer — rendered inline at correct position (1.3, between 1.2 and 1.4)
+      const L = state.lang;
+      html += `<section class="section">
+        <div class="sec-label">${t(sec.label)}</div>
+        <div class="sec-title">${t(sec.title)}</div>
+        <div class="sec-intro">${t(sec.intro)}</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px">
+          <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)"><div style="width:10px;height:10px;border-radius:2px;background:#BFDBFE;flex-shrink:0"></div>${L==='mr'?'हलके REE':'Light REEs'}</div>
+          <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)"><div style="width:10px;height:10px;border-radius:2px;background:#FECACA;flex-shrink:0"></div>${L==='mr'?'जड REE':'Heavy REEs'}</div>
+          <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)"><div style="width:10px;height:10px;border-radius:2px;background:#A7F3D0;flex-shrink:0"></div>Sc &amp; Y</div>
+        </div>
+        <div id="reeGrid"></div>
+        <div id="reeDetail"></div>
+        ${sec.globalProd ? `<div style="margin-top:16px;padding:12px 16px;background:var(--surface2);border-radius:var(--radius);display:flex;gap:16px;flex-wrap:wrap">
+          <div><span style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:700;color:var(--accent)">${sec.globalProd.stat}</span><span style="font-size:11px;color:var(--muted);margin-left:8px">${t(sec.globalProd.label)}</span></div>
+          <div><span style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:700;color:var(--accent)">${sec.chinaShare.stat}</span><span style="font-size:11px;color:var(--muted);margin-left:8px">${t(sec.chinaShare.label)}</span></div>
+        </div>` : ''}
+        ${implBox(t(sec.keyInsight))}
+        ${srcLinks(sec.sources)}
+      </section>`;
+      return;
+    }
+
     html += `<section class="section">
       <div class="sec-label">${t(sec.label)}</div>
       <div class="sec-title">${t(sec.title)}</div>
@@ -201,30 +224,6 @@ function renderTab1() {
     html += srcLinks(sec.sources);
     html += `</section>`;
   });
-
-  // Append REE explorer section (section 1.3 data drives this)
-  const reeSec = DB.tab_basics.sections.find(s => s.id === 'basics_13');
-  if (reeSec) {
-    const L = state.lang;
-    html += `<section class="section">
-      <div class="sec-label">${t(reeSec.label)}</div>
-      <div class="sec-title">${t(reeSec.title)}</div>
-      <div class="sec-intro">${t(reeSec.intro)}</div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px">
-        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)"><div style="width:10px;height:10px;border-radius:2px;background:#BFDBFE;flex-shrink:0"></div>Light REEs</div>
-        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)"><div style="width:10px;height:10px;border-radius:2px;background:#FECACA;flex-shrink:0"></div>Heavy REEs</div>
-        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)"><div style="width:10px;height:10px;border-radius:2px;background:#A7F3D0;flex-shrink:0"></div>Sc &amp; Y</div>
-      </div>
-      <div id="reeGrid"></div>
-      <div id="reeDetail"></div>
-      ${reeSec.globalProd ? `<div style="margin-top:16px;padding:12px 16px;background:var(--surface2);border-radius:var(--radius);display:flex;gap:16px;flex-wrap:wrap">
-        <div><span style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:700;color:var(--accent)">${reeSec.globalProd.stat}</span><span style="font-size:11px;color:var(--muted);margin-left:8px">${t(reeSec.globalProd.label)}</span></div>
-        <div><span style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:700;color:var(--accent)">${reeSec.chinaShare.stat}</span><span style="font-size:11px;color:var(--muted);margin-left:8px">${t(reeSec.chinaShare.label)}</span></div>
-      </div>` : ''}
-      ${implBox(t(reeSec.keyInsight))}
-      ${srcLinks(reeSec.sources)}
-    </section>`;
-  }
   pane.innerHTML = html;
   renderREEGrid();
 }
@@ -1317,9 +1316,12 @@ function buildMineralFilters() {
     {key:'fertilizer',label: t(d.filters.fertilizer)},
   ];
   div.innerHTML = filters.map(function(f) {
-    return '<button class="filter-btn' + (f.key==='essential'?' active':'') + '" id="filter-' + f.key + '"' +
+    var isActive = f.key === 'essential';
+    var activeStyle = 'background:var(--primary);color:#fff;border-color:var(--primary)';
+    var inactiveStyle = 'background:var(--surface);border:1px solid var(--border);color:var(--text2)';
+    return '<button class="filter-btn' + (isActive?' active':'') + '" id="filter-' + f.key + '"' +
       ' onclick="setMineralFilter(\'' + f.key + '\', this)"' +
-      ' style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:500;cursor:pointer;font-family:\'DM Sans\',sans-serif;transition:all 0.15s">' +
+      ' style="' + (isActive?activeStyle:inactiveStyle) + ';border-radius:20px;padding:5px 14px;font-size:11px;font-weight:500;cursor:pointer;font-family:\'DM Sans\',sans-serif;transition:all 0.15s">' +
       f.label + '</button>';
   }).join('');
 }
@@ -1353,7 +1355,7 @@ function renderMineralGrid(filter) {
   var shown;
   if (filter === 'essential') shown = minerals.filter(function(m){ return m.essential; });
   else if (filter === 'all')   shown = minerals;
-  else shown = minerals.filter(function(m){ return m.cat && m.cat.includes(filter); });
+  else shown = minerals.filter(function(m){ var catKey = filter === 'semi' ? 'semiconductor' : filter; return m.cat && m.cat.includes(catKey); });
 
   if (counter) {
     var L = state.lang;
