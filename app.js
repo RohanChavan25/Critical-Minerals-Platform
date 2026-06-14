@@ -58,6 +58,7 @@ function switchTab(id, el_) {
   if (el_) el_.classList.add('active');
   const pane = el('pane-' + id);
   if (pane) pane.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ══════════════════════════════════════════════
@@ -184,6 +185,7 @@ function renderTab1() {
   let html = '';
 
   data.sections.forEach(sec => {
+    if (sec.id === 'basics_13') return; // rendered separately below with full REE explorer
     html += `<section class="section">
       <div class="sec-label">${t(sec.label)}</div>
       <div class="sec-title">${t(sec.title)}</div>
@@ -903,7 +905,7 @@ function renderTab3() {
 
   pane.innerHTML = `
     <section class="section">
-      <div class="sec-label">3 — ${state.lang === 'mr' ? 'खेळाडू' : 'The Players'}</div>
+      <div class="sec-label">${state.lang === 'mr' ? '४' : '4'} — ${state.lang === 'mr' ? 'खेळाडू' : 'The Players'}</div>
       <div class="sec-title">${t(d.intro)}</div>
       <div class="sec-intro">${t(d.subIntro)}</div>
       <div id="playerBtns" style="display:flex;flex-wrap:wrap;gap:8px;margin:20px 0"></div>
@@ -1040,7 +1042,7 @@ function renderTab4() {
   const L   = state.lang;
 
   pane.innerHTML = `
-    <!-- 4.1 Five Stages -->
+    <!-- 5.1 Five Stages -->
     <section class="section">
       <div class="sec-label">${t(d.sections[0].label)}</div>
       <div class="sec-title">${t(d.sections[0].title)}</div>
@@ -1049,9 +1051,7 @@ function renderTab4() {
       <div id="stageDetail" style="display:none;margin-top:2px"></div>
     </section>
 
-    ${renderInvestmentTimeline()}
-
-    <!-- 4.2 Midstream in Detail -->
+    <!-- 5.2 Midstream in Detail -->
     <section class="section">
       <div class="sec-label">${t(d.sections[1].label)}</div>
       <div class="sec-title">${t(d.sections[1].title)}</div>
@@ -1068,16 +1068,16 @@ function renderTab4() {
       ${srcLinks(d.sections[1].sources)}
     </section>
 
-    <!-- 4.3 India Across the Chain -->
+    <!-- 5.3 India Across the Chain -->
     <section class="section">
-      <div class="sec-label">4.3 — ${L==='mr'?'साखळीत भारत':'India Across the Chain'}</div>
+      <div class="sec-label">${L==='mr'?'५.३':'5.3'} — ${L==='mr'?'साखळीत भारत':'India Across the Chain'}</div>
       <div class="sec-title">${L==='mr'?'भारत कुठे आहे — आणि कुठे अनुपस्थित आहे':"Where India sits — and where it is absent"}</div>
       <div class="sec-intro">${L==='mr'?'सहा प्रमुख महत्त्वाच्या खनिजांसाठी, मूल्य साखळीच्या प्रत्येक टप्प्यावर भारताची वास्तविक स्थिती येथे आहे.':"For six key critical minerals, here is India's actual position at each stage of the value chain. The pattern is consistent: India has resources upstream; it is absent from processing onward."}</div>
       ${renderChainMatrix(d.sections[0].indiaMatrix)}
       ${srcLinks(d.sections[0].sources)}
     </section>
 
-    <!-- 4.4 De-risking -->
+    <!-- 5.4 De-risking Toolkit -->
     <section class="section">
       <div class="sec-label">${t(d.sections[2].label)}</div>
       <div class="sec-title">${t(d.sections[2].title)}</div>
@@ -1085,12 +1085,15 @@ function renderTab4() {
       ${renderToolkitOverview(d.sections[2].toolkitOverview)}
       ${factBox(t(d.sections[2].honestNote))}
       ${srcLinks(d.sections[2].sources)}
-    </section>`;
+    </section>
+
+    <!-- 5.5 Investment Timeline -->
+    ${renderInvestmentTimeline()}`;
 
   buildStageList();
 }
 
-// Renders the 5.3 "five tools at a glance" overview
+// Renders the 5.4 "five tools at a glance" overview (five de-risking tools, one-line each)
 function renderToolkitOverview(overview) {
   if (!overview) return '';
   return `
@@ -1164,7 +1167,7 @@ function buildStageList() {
   const stageList   = el('stageList');
   const stageDetail = el('stageDetail');
   if (!stageList) return;
-  const stages = DB._rawChainStages.slice(0, 5); // 5.0, 5.0.1-5.0.4 (excludes 5.4, rendered separately)
+  const stages = DB._rawChainStages.slice(0, 5); // Stage 1 (Exploration) through Stage 5 (Manufacturing); Stage 5.5 Investment Timeline rendered separately
   const lbl    = DB.tab_chain.stageLabels;
   const L      = state.lang;
 
@@ -1187,7 +1190,7 @@ function buildStageList() {
     ].filter(Boolean).join(';');
 
     // Use the section's own label/title for display
-    const stageLabel = t(s.label); // e.g. "5.0.1 — Mining"
+    const stageLabel = t(s.label); // e.g. "Stage 2 — Mining"
     const stageTitle = t(s.title);
 
     row.innerHTML = `
@@ -1277,9 +1280,9 @@ function renderInvestmentTimeline() {
 // ══════════════════════════════════════════════
 
 const riskColour = {'Very High':'#C62828','High':'#EF9F27','Moderate':'#2D6A4F','Moderate-High':'#D4A017'};
-const posBg      = {import:'#FDECEA',partial:'#FEF3E2',locked:'#E8E4DC',dormant:'#E6F1FB',present:'#E1F5EE'};
-const posText_   = {import:'#C62828',partial:'#7A4A00',locked:'#555',dormant:'#185FA5',present:'#0F6E56'};
-const posLabel_  = {import:'100% Import Dependent',partial:'Partial / Limited',locked:'Legally Locked',dormant:'Resources / Potential',present:'Domestic Capacity'};
+const posBg      = {import:'#FDECEA',partial:'#FEF3E2',locked:'#E8E4DC',dormant:'#E6F1FB',present:'#E1F5EE',reviving:'#F0FDF4'};
+const posText_   = {import:'#C62828',partial:'#7A4A00',locked:'#555',dormant:'#185FA5',present:'#0F6E56',reviving:'#15803D'};
+const posLabel_  = {import:'100% Import Dependent',partial:'Partial / Limited',locked:'Legally Locked',dormant:'Resources / Potential',present:'Domestic Capacity',reviving:'Reviving / Pre-Commercial'};
 
 let currentMineralFilter = 'essential';
 let selectedMineral = null;
@@ -1748,7 +1751,7 @@ function renderTab7() {
 
   // Resources section
   html += `<section class="section">
-    <div class="sec-label">7.1 — ${state.lang==='mr'?'भारताकडे काय आहे':'What India Has'}</div>
+    <div class="sec-label">${state.lang==='mr'?'८.१':'8.1'} — ${state.lang==='mr'?'भारताकडे काय आहे':'What India Has'}</div>
     <div class="sec-title">${state.lang==='mr'?'भूगर्भीय हात':'The geological hand'}</div>
     <div class="sec-intro">${state.lang==='mr'?'भारताकडे जगातील ४थे/५वे सर्वात मोठे REE साठे आहेत आणि महत्त्वपूर्ण ग्रॅफाइट, गॅलियम, टायटॅनियम संसाधने आहेत.':'India holds the 4th/5th largest REE reserves globally plus significant graphite, gallium, and titanium resources. NCMM has committed ₹34,300 crore through FY2031 to convert this endowment into supply chain position.'}</div>
     <div class="resources-grid">
@@ -1764,7 +1767,7 @@ function renderTab7() {
 
   // Alliances
   html += `<section class="section">
-    <div class="sec-label">7.2 — ${state.lang==='mr'?'आघाडी आर्किटेक्चर':'Alliance Architecture'}</div>
+    <div class="sec-label">${state.lang==='mr'?'८.२':'8.2'} — ${state.lang==='mr'?'आघाडी आर्किटेक्चर':'Alliance Architecture'}</div>
     <div class="sec-title">${state.lang==='mr'?'भारताच्या भागीदारी — चौकटी बांधल्या, अंमलबजावणी पेंडिंग':"India's partnerships — frameworks built, execution pending"}</div>
     <div class="sec-intro">${t(d.allianceInsight.body)}</div>
     <div class="alliances-grid">
@@ -1780,7 +1783,7 @@ function renderTab7() {
 
   // Constraints
   html += `<section class="section">
-    <div class="sec-label">7.3 — ${state.lang==='mr'?'अडसर':'The Constraints'}</div>
+    <div class="sec-label">${state.lang==='mr'?'८.३':'8.3'} — ${state.lang==='mr'?'अडसर':'The Constraints'}</div>
     <div class="sec-title">${state.lang==='mr'?'भारताची संभावना पुरवठा साखळीत का रूपांतरित होत नाही':"Why India's potential has not converted into supply chain position"}</div>
     <div class="sec-intro">${state.lang==='mr'?'खाली दिलेले चार अडसर भारताची भूगर्भीय संभावना आणि पुरवठा साखळीतील स्थान यांच्यातील अंतर स्पष्ट करतात.':'Four structural constraints explain the gap between India\'s geological potential and its supply chain position.'}</div>
     <div class="constraints-grid">
@@ -1794,7 +1797,7 @@ function renderTab7() {
 
   // Conditions
   html += `<section class="section">
-    <div class="sec-label">7.4 — ${state.lang==='mr'?'रेड्डी-कोतस्थाने चौकट':'The Reddy-Kotasthane Framework'}</div>
+    <div class="sec-label">${state.lang==='mr'?'८.४':'8.4'} — ${state.lang==='mr'?'रेड्डी-कोतस्थाने चौकट':'The Reddy-Kotasthane Framework'}</div>
     <div class="sec-title">${state.lang==='mr'?'कार्यक्षम कराराासाठी पाच अटी':'Five conditions for a deal that actually works'}</div>
     <div class="sec-intro">${t(d.conditionIntro.body)}</div>
     <div class="conditions-grid">
@@ -1811,9 +1814,8 @@ function renderTab7() {
 }
 
 // ══════════════════════════════════════════════
-// UPDATE renderAll to include all tabs
 // ══════════════════════════════════════════════
-// Override the renderAll defined earlier
+// Canonical renderAll — calls all 9 tab renderers in order
 function renderAll() {
   renderHeader();
   renderNav();
