@@ -52,9 +52,9 @@ const DB = {
     nextLens:      { en: 'Next lens →', mr: 'पुढील दृष्टिकोन →' },
     triviaLabel:   { en: 'Did you know', mr: 'तुम्हाला माहीत आहे का' },
     factLabel:     { en: 'Fact', mr: 'तथ्य' },
-    implLabel:     { en: 'Strategic Implication', mr: 'धोरणात्मक अनुमान' },
+    implLabel:     { en: 'Strategic Implication', mr: 'धोरणात्मक निहितार्थ' },
     sourcesLabel:  { en: 'Sources', mr: 'स्रोत' },
-    inferenceLbl:  { en: '[Our inference]', mr: '[आमचे अनुमान]' },
+    inferenceLbl:  { en: '[Our inference]', mr: '[आपला अनुमान]' },
     seeMore:       { en: 'Go deeper ↓', mr: 'अधिक पाहा ↓' },
     seeLess:       { en: 'Close ↑', mr: 'बंद करा ↑' },
     backToTop:     { en: '↑', mr: '↑' },
@@ -159,9 +159,9 @@ const DB = {
           intro: { en: 'A mineral is "critical" when it scores high on both parameters simultaneously:', mr: 'जेव्हा खनिज दोन्ही मापदंडांवर उच्च गुण मिळवते तेव्हा ते "महत्त्वाचे" असते:' },
           params: [
             { name: { en: 'Economic Importance', mr: 'आर्थिक महत्त्व' }, desc: { en: 'How many industries depend on it; strategic and defence roles; substitutability; economic value created.', mr: 'किती उद्योग यावर अवलंबून आहेत; धोरणात्मक आणि संरक्षण भूमिका; पर्यायाची उपलब्धता.' } },
-            { name: { en: 'Supply Risk', mr: 'पुरवठा धोका' }, desc: { en: 'Geographic concentration of mining and refining; political stability of producers; import reliance; export control exposure.', mr: 'खाणकाम आणि शुद्धीकरणाची भौगोलिक एकाग्रता; उत्पादकांची राजकीय स्थिरता; आयात अवलंबित्व.' } }
+            { name: { en: 'Supply Risk', mr: 'पुरवठा जोखीम' }, desc: { en: 'Geographic concentration of mining and refining; political stability of producers; import reliance; export control exposure.', mr: 'खाणकाम आणि शुद्धीकरणाची भौगोलिक एकाग्रता; उत्पादकांची राजकीय स्थिरता; आयात अवलंबित्व.' } }
           ],
-          formula: { en: 'Criticality = Economic & Strategic Importance × Supply Risk', mr: 'महत्त्व = आर्थिक आणि सामरिक महत्त्व × पुरवठा धोका' },
+          formula: { en: 'Criticality = Economic & Strategic Importance × Supply Risk', mr: 'महत्त्व = आर्थिक आणि सामरिक महत्त्व × पुरवठा जोखीम' },
           src: ['iea_topic_page']
         },
         nationalSecurity: {
@@ -511,7 +511,7 @@ DB.tab_why = {
         src: 'iea_outlook_2025',
         rows: [
           { label: { en: 'Top 3 refining nations market share (2024)', mr: 'शीर्ष ३ शुद्धीकरण देशांचा बाजार वाटा (२०२४)' }, value: '86%', note: { en: 'Up from 82% in 2020 — concentration is increasing', mr: '२०२० मध्ये ८२% वरून — एकाग्रता वाढत आहे' } },
-          { label: { en: 'Minerals where China leads refining (of 20)', mr: 'China आघाडीवर असलेली खनिजे शुद्धीकरणात (२० पैकी)' }, value: '19/20', note: { en: 'Leads in all but one strategic mineral', mr: 'एक वगळता सर्व धोरणात्मक खनिजांमध्ये आघाडी' } },
+          { label: { en: 'Minerals where China leads refining (of 20)', mr: 'चीन आघाडीवर असलेली खनिजे शुद्धीकरणात (२० पैकी)' }, value: '19/20', note: { en: 'Leads in all but one strategic mineral', mr: 'एक वगळता सर्व धोरणात्मक खनिजांमध्ये आघाडी' } },
           { label: { en: "China's average refining share", mr: 'चीनचा सरासरी शुद्धीकरण वाटा' }, value: '~70%', note: { en: 'Across 20 strategic minerals', mr: '२० धोरणात्मक खनिजांवर' } },
           { label: { en: 'Supply growth from single supplier 2020–24', mr: '२०२०-२४ मध्ये एकाच पुरवठादाराकडून पुरवठा वाढ' }, value: '~90%', note: { en: 'Most new supply came from one source', mr: 'बहुतेक नवीन पुरवठा एकाच स्रोताकडून' } }
         ]
@@ -1100,7 +1100,7 @@ DB._rawChainStages = [
       },
       recyclingNote: {
         title: { en: "Recycling target reconciliation", mr: "पुनर्वापर उद्दिष्ट सामंजस्य" },
-        body: { en: "India\'s Critical Mineral Recycling Incentive Scheme (Rs 1,500 crore, approved September 2025) targets roughly 300,000 tonnes/year of recycling capacity by FY2030-31 -- see Tab 4\'s India player card for the verified figure and primary source. As secondary supply becomes more important globally (China\'s primary REE mining is projected by some analysts to plateau or decline after the early 2040s), this recycling capacity is one of the few links in the chain where India is building forward-looking capability rather than starting from zero.", mr: "भारताची क्रिटिकल मिनरल रिसायकलिंग इन्सेंटिव्ह योजना (रु. १,५०० कोटी, सप्टेंबर २०२५ मध्ये मंजूर) FY2030-31 पर्यंत सुमारे ३००,००० टन/वर्ष पुनर्वापर क्षमतेचे उद्दिष्ट ठेवते -- सत्यापित आकडा आणि प्राथमिक स्रोतासाठी टॅब ४ चे भारत खेळाडू कार्ड पहा." },
+        body: { en: "India\'s Critical Mineral Recycling Incentive Scheme (Rs 1,500 crore, approved September 2025) targets roughly 300,000 tonnes/year of recycling capacity by FY2030-31 -- see Tab 4\'s India player card for the verified figure and primary source. As secondary supply becomes more important globally (China\'s primary REE mining is projected by some analysts to plateau or decline after the early 2040s), this recycling capacity is one of the few links in the chain where India is building forward-looking capability rather than starting from zero.", mr: "भारताची महत्त्वाच्या खनिज पुनर्वापर इन्सेंटिव्ह योजना (रु. १,५०० कोटी, सप्टेंबर २०२५ मध्ये मंजूर) FY2030-31 पर्यंत सुमारे ३००,००० टन/वर्ष पुनर्वापर क्षमतेचे उद्दिष्ट ठेवते -- सत्यापित आकडा आणि प्राथमिक स्रोतासाठी टॅब ४ चे भारत खेळाडू कार्ड पहा." },
         src: "ncmm_recycling_scheme_2025"
       },
       sources: ["iea_magnets_2026", "niti_semiconductor_roadmap_2026", "ncmm_recycling_scheme_2025"]
@@ -1110,7 +1110,7 @@ DB._rawChainStages = [
       id: "chain_54",
       label: { en: "5.5 — The Investment Timeline", mr: "५.५ — गुंतवणूक कालरेखा" },
       title: { en: "Why \"just mine more\" takes a decade or more", mr: "\"फक्त अधिक खाणकाम करा\" ला एक दशकाहून अधिक का लागते" },
-      intro: { en: "The de-risking toolkit in 5.3 includes reshoring mining and processing -- but mining projects follow a well-understood lifecycle, often called the \"snake curve\" in mining finance, that maps value and risk against time. Understanding this curve explains why the 17.8-year average mine development time (see Tab 2) is not a policy failure in itself, but a structural feature -- and where policy intervention actually has leverage.", mr: "५.३ मधील डी-रिस्किंग साधनसंचात खाणकाम आणि प्रक्रिया पुन्हा देशात आणणे समाविष्ट आहे -- पण खाण प्रकल्प एक सुपरिचित जीवनचक्र अनुसरतात, ज्याला खाण वित्तपुरवठ्यात \"साप वक्र\" म्हटले जाते, जे मूल्य आणि जोखीम वेळेच्या तुलनेत दाखवते. हे वक्र समजल्याने १७.८ वर्षांचा सरासरी खाण विकास वेळ (टॅब २ पहा) हे धोरणात्मक अपयश नसून संरचनात्मक वैशिष्ट्य आहे हे स्पष्ट होते -- आणि धोरणात्मक हस्तक्षेपाला प्रत्यक्षात कुठे प्रभाव आहे ते दाखवते." },
+      intro: { en: "The de-risking toolkit in 5.3 includes reshoring mining and processing -- but mining projects follow a well-understood lifecycle, often called the \"snake curve\" in mining finance, that maps value and risk against time. Understanding this curve explains why the 17.8-year average mine development time (see Tab 2) is not a policy failure in itself, but a structural feature -- and where policy intervention actually has leverage.", mr: "५.३ मधील डी-रिस्किंग साधन संचात खाणकाम आणि प्रक्रिया पुन्हा देशात आणणे समाविष्ट आहे -- पण खाण प्रकल्प एक सुपरिचित जीवनचक्र अनुसरतात, ज्याला खाण वित्तपुरवठ्यात \"साप वक्र\" म्हटले जाते, जे मूल्य आणि जोखीम वेळेच्या तुलनेत दाखवते. हे वक्र समजल्याने १७.८ वर्षांचा सरासरी खाण विकास वेळ (टॅब २ पहा) हे धोरणात्मक अपयश नसून संरचनात्मक वैशिष्ट्य आहे हे स्पष्ट होते -- आणि धोरणात्मक हस्तक्षेपाला प्रत्यक्षात कुठे प्रभाव आहे ते दाखवते." },
       snakeCurve: {
         caption: { en: "The mining project lifecycle: value, risk, and time", mr: "खाण प्रकल्प जीवनचक्र: मूल्य, जोखीम आणि वेळ" },
         stages: [
@@ -1434,8 +1434,8 @@ DB.tab_minerals = {
     whatItDoes: { en: "What it does", mr: "काय करते" },
     globalProd: { en: "Global production", mr: "जागतिक उत्पादन" },
     indiaPos:   { en: "India's position", mr: "भारताची स्थिती" },
-    stratImpl:  { en: "Strategic Implication", mr: "धोरणात्मक अनुमान" },
-    supplyRisk: { en: "Supply Risk:", mr: "पुरवठा धोका:" },
+    stratImpl:  { en: "Strategic Implication", mr: "धोरणात्मक निहितार्थ" },
+    supplyRisk: { en: "Supply Risk:", mr: "पुरवठा जोखीम:" },
     src:        { en: "Source:", mr: "स्रोत:" }
   }
 };
