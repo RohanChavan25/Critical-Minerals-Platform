@@ -1431,7 +1431,9 @@ function showMineral(m, card) {
         '</div>' +
         siHtml +
         '<div style="border-top:1px solid var(--border);padding-top:10px;margin-top:4px">' +
-          '<a href="' + m.srcUrl + '" target="_blank" class="src-link">' + m.src + ' ↗</a>' +
+          (m.sources && m.sources.length
+            ? m.sources.map(function(s){ return '<a href="' + s.url + '" target="_blank" class="src-link" style="display:inline-block;margin-right:10px;margin-bottom:4px">' + s.label + ' ↗</a>'; }).join('')
+            : '') +
         '</div>' +
       '</div>' +
     '</div>';
